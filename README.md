@@ -30,4 +30,9 @@ Need python >= 3.6
 mkvirtualenv -p ~/.pyenv/versions/3.6.5/bin/python superlists 
 ~~~~~
 
+2.1 Djnago and Selenium
+
+~~~~~
+pip install django==1.11.3 "selenium==3.4.3
+~~~~~
 
