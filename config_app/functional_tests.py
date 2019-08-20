@@ -18,45 +18,57 @@ class NewVisitorTest(unittest.TestCase):
     def test_can_a_list_and_retrieve_it_later(self):
         """ test : can start and get list """
         self.browser.get("http://localhost:8000")
-
         self.assertIn('To-Do', self.browser.title)
         self.fail('End test!')
 
     def test_can_start_a_list_and_retrieve_it_later(self):
-        '''тест: можно начать список и получить его позже'''
-        # Эдит слышала про крутое новое онлайн-приложение со списком
-        # неотложных дел. Она решает оценить его домашнюю страницу
+        '''test: can start list and get him later'''
+        # Lusi hear about new app with lists
+        # and want see this app 
         self.browser.get('http://localhost:8000')
-        # Она видит, что заголовок и шапка страницы говорят о списках
-        # неотложных дел
+        # She see header and title tell about lists 
         self.assertIn('To-Do', self.browser.title)
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('To-Do', header_text)
-        # Ей сразу же предлагается ввести элемент списка
+        # She input element of list k
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
             'Enter a to-do item'
         )
-        # Она набирает в текстовом поле "Купить павлиньи перья"
-        # (ее хобби – вязание рыболовных мушек)
-        inputbox.send_keys('Купить павлиньи перья') 
-        # Когда она нажимает enter, страница обновляется, и теперь страница
-        # содержит "1: Купить павлиньи перья" в качестве элемента списка
+        # They write in textfield "Buy something"
+        inputbox.send_keys('1: Buy somthing') 
+        # When she press enter, page  updated
+        # now page consist  "Buy something"
+
         inputbox.send_keys(Keys.ENTER) 
-        time.sleep(1) 
+        time.sleep(3) 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr') 
         self.assertTrue(
-            any(row.text == '1: Купить павлиньи перья' for row in rows)
+            any(row.text == '1: Buy somthing' for row in rows),
+            f"New element list dont show in table"
         )
-        # Текствое поле по-прежнему приглашает ее добавить еще один элемент.
-        # Она вводит "Сделать мушку из павлиньих перьев"
-        # (Эдит очень методична)
-        self.fail('Закончить тест!')
+        self.assertIn('1: Buy somthing', [row.text for row in rows])
 
-        # Страница снова обновляется и теперь показывает оба элемента
-        # ее списка
+
+
+        # Text field invites she add element 
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Make')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('1: Buy somthing', [row.text for row in rows])
+        self.assertIn(
+            'Make',
+            [row.text for row in rows]
+        )
+
+
+        self.fail('Test fail!')
 
 
 if __name__ == "__main__":
