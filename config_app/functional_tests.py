@@ -21,6 +21,13 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn('To-Do', self.browser.title)
         self.fail('End test!')
 
+        def check_for_row_in_list_table(self, row_text):
+            '''подтверждение строки в таблице списка'''
+            table = self.browser.find_element_by_id('id_list_table')
+            rows = table.find_elements_by_tag_name('tr')
+            self.assertIn(row_text, [row.text for row in rows])
+
+
     def test_can_start_a_list_and_retrieve_it_later(self):
         '''test: can start list and get him later'''
         # Lusi hear about new app with lists
@@ -43,33 +50,19 @@ class NewVisitorTest(unittest.TestCase):
 
         inputbox.send_keys(Keys.ENTER) 
         time.sleep(3) 
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr') 
-        self.assertTrue(
-            any(row.text == '1: Buy somthing' for row in rows),
-            f"New element list dont show in table"
-        )
-        self.assertIn('1: Buy somthing', [row.text for row in rows])
-
+        self.check_for_row_in_list_table("1: Buy somthing")
 
 
         # Text field invites she add element 
         inputbox = self.browser.find_element_by_id('id_new_item')
-        inputbox.send_keys('Make')
+        inputbox.send_keys('2: Make')
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
 
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn('1: Buy somthing', [row.text for row in rows])
-        self.assertIn(
-            'Make',
-            [row.text for row in rows]
-        )
-
+        self.check_for_row_in_list_table("1: Buy somthing")
+        self.check_for_row_in_list_table("2: Make")
 
         self.fail('Test fail!')
-
 
 if __name__ == "__main__":
     unittest.main(warnings='ignore')
