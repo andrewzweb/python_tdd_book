@@ -64,3 +64,15 @@ class ItemModelTest(TestCase):
         second_saved_item = saved_items[1].text
         self.assertEqual(first_saved_item, 'The first (ever) list item')
         self.assertEqual(second_saved_item, 'Item the second')
+
+
+    def test_displays_all_list_items(self):
+        ''' test: show all elements of list'''
+
+        Item.objects.create(text='item 1')
+        Item.objects.create(text='item 2')
+
+        response = self.client.get('/')
+
+        self.assertIn('item 1', response.content.decode())
+        self.assertIn('item 2', response.content.decode())
