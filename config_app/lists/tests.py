@@ -34,7 +34,7 @@ class HomePageTest(TestCase):
         '''test: redirect after post-request'''
         response = self.client.post('/', data={'item_text':'A new list item'})
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/')
+        self.assertEqual(response['location'], '/lists/one-of-the-world/')
         
 
     def test_only_saves_items_when_necessary(self):
@@ -44,7 +44,13 @@ class HomePageTest(TestCase):
 
 
 class ItemModelTest(TestCase):
-    '''tets models '''
+    '''test models '''
+
+    def test_home_page_returns_correct_html(self):
+        '''тест: домашняя страница возвращает правильный html'''
+        response = self.client.get('/lists/one-of-the-world/') 
+        self.assertTemplateUsed(response, 'list.html')
+
 
     def test_saving_and_retrieving_items(self):
         '''test saving and get element of list'''
@@ -66,13 +72,16 @@ class ItemModelTest(TestCase):
         self.assertEqual(second_saved_item, 'Item the second')
 
 
-    def test_displays_all_list_items(self):
-        ''' test: show all elements of list'''
+
+class ListViewTest(TestCase):
+    
+    def test_displays_all_items(self):
+        ''' test: show all element of list '''
 
         Item.objects.create(text='item 1')
         Item.objects.create(text='item 2')
 
-        response = self.client.get('/')
+        response = self.client.get('/lists/one-of-the-world/')
 
-        self.assertIn('item 1', response.content.decode())
-        self.assertIn('item 2', response.content.decode())
+        self.assertContains(response, 'item 1')
+        self.assertContains(response, 'item 2')
