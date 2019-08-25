@@ -27,7 +27,7 @@ class ListAndItemModelsTest(TestCase):
 
     def test_saving_and_retrieving_items(self):
         '''test saving and get element of list'''
-        list_ = List()
+        list_ = List.objects.create()
         list_.save()
 
         first_item = Item()
