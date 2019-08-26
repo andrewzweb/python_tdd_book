@@ -2,7 +2,7 @@
 
 {% block header_text %}Your To-Do list{% endblock %}
 
-{% form_action %}/list/{{ list.id }}/add_item{% endblock %}
+{% block form_action %}/lists/{{ list.id }}/add_item{% endblock %}
 
 
 {% block table %}
@@ -12,4 +12,7 @@
 	  {% endfor %}
 </table>
 {% endblock %}
+
+
+
 
