@@ -1,4 +1,5 @@
 from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver 
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
@@ -7,7 +8,7 @@ import unittest
 
 MAX_WAIT = 10
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
     """ test new user """
 
     def setUp(self):
@@ -118,6 +119,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.set_window_size(1024, 768)
         
         # she start new list  and see input in center 
+        inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('testing')
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table("1: testing")
