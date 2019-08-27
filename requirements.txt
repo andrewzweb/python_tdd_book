@@ -1,0 +1,5 @@
+dj-database-url==0.5.0
+Django==1.11.3
+pytz==2019.2
+selenium==3.4.3
+whitenoise==4.1.3
