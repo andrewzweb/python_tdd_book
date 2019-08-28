@@ -1,0 +1,14 @@
+[Unit]
+Description = Gunicorn server for SITENAME
+
+[Service]
+Restart = on-failure
+User = $(uname -n)
+WorkingDerectory=/home/elspeth/sites/SITENAME/source
+ExecStart=/home/$(uname -n)/sites/SITENAME/virtualenv/bin/gunicorn \
+	--bing unix:/tmp/SITENAME.socket \
+	app_name.wsgi:application
+
+[Install]E
+WantedBy=multi-user.target
+
