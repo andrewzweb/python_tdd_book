@@ -123,7 +123,7 @@ class NewListTest(TestCase):
         '''test validation errors end up on lists page '''
         list_ = List.objects.create()
         response = self.client.post(
-            f'/lists/{list_.id}',
+            f'/lists/{list_.id}/',
             data = {"item_text" : ''}
         )
 
