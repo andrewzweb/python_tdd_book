@@ -6,6 +6,11 @@ from django.core.exceptions import ValidationError
 class ListAndItemModelsTest(TestCase):
     '''test models '''
 
+    def test_get_absolute_url(self):
+        ''' test get absolute url '''
+        list_ = List.objects.create()
+        self.assertEqual(list_.get_absolute_ur(), f'/lists/{list_.id}/')
+
     def test_saving_and_retrieving_items(self):
         '''test saving and get element of list'''
         list_ = List.objects.create()
