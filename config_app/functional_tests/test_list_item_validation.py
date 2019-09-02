@@ -30,8 +30,8 @@ class ItemValidatorTest(FunctionalTest):
         
         # Luci get error in page 
 
-        self.wait_for(lambda: self.assertEqual(
-            self.browser.find_element_by_css_selector('.has-error').text,
+        self.wait_for(lambda: self.assertContains(
+            self.browser.find_element_by_css_selector('has-error').text,
             "You can't have an empty list item"
         ))
         
