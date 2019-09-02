@@ -1,6 +1,7 @@
 import os
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver 
+from selenium.common.exceptions import WebDriverException
 import time 
 
 MAX_WAIT = 10
@@ -49,5 +50,6 @@ class FunctionalTest(StaticLiveServerTestCase):
                 if time.time() - start_time > MAX_WAIT:
                     raise e
                 time.sleep(0.5)
+
 
 
