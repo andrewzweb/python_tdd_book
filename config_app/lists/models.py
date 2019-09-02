@@ -8,6 +8,6 @@ class List(models.Model):
 
 class Item(models.Model):
     '''item'''
-    text = models.TextField(default='',blank=False,null=True)
+    text = models.TextField(blank=False)
     list = models.ForeignKey(List,default=None)
 
