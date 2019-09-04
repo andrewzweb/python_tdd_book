@@ -10,7 +10,8 @@ class ItemValidatorTest(FunctionalTest):
         
         # Luci open home page and try send empmty item of list
         self.browser.get(self.live_server_url)
-        self.browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)
+        inputbox = self.get_item_input_box().send_keys(Keys.ENTER)
+
 
         # home reload and show error messege 
         # what say element can not be empty
@@ -21,12 +22,12 @@ class ItemValidatorTest(FunctionalTest):
         ))
 
         # now she try with text and its work 
-        
-        self.browser.find_element_by_id('id_new_item').send_keys("Buy milk")
-        self.browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)
+        self.get_item_input_box().send_keys("Buy milk")
+        self.get_item_input_box().send_keys(Keys.ENTER)
+
 
         # how not strange she deside send empty element
-        self.browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)
+        self.get_item_input_box().send_keys(Keys.ENTER)
         
         # Luci get error in page 
 
@@ -35,8 +36,8 @@ class ItemValidatorTest(FunctionalTest):
             "You can't have an empty list item"
         ))
         
-        self.browser.find_element_by_id('id_new_item').send_keys("Make tea")
-        self.browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)
+        self.get_item_input_box().send_keys("Make tea")
+        self.get_item_input_box().send_keys(Keys.ENTER)
 
         self.wait_for_row_in_list_table('1: Buy milk')
         self.wait_for_row_in_list_table('2: Make tea')

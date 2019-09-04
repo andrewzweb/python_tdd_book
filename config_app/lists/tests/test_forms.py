@@ -19,3 +19,5 @@ class ItemFormTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['text'],[EMPTY_ITEM_ERROR])
 
+
+

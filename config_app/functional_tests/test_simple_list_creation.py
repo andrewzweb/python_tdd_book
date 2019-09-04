@@ -16,7 +16,8 @@ class NewVisitorTest(FunctionalTest):
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('To-Do', header_text)
         # She input element of list k
-        inputbox = self.browser.find_element_by_id('id_new_item')
+
+        inputbox = self.get_item_input_box()
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
             'Enter a to-do item'
@@ -31,7 +32,7 @@ class NewVisitorTest(FunctionalTest):
 
 
         # Text field invites she add element 
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         inputbox.send_keys("make a fly")
         inputbox.send_keys(Keys.ENTER)
 
@@ -44,7 +45,7 @@ class NewVisitorTest(FunctionalTest):
         
         # Lusi star tnew list
         self.browser.get(self.live_server_url)
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         inputbox.send_keys('buy peacock feathers')
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: buy peacock feathers')
@@ -63,7 +64,7 @@ class NewVisitorTest(FunctionalTest):
         self.assertNotIn('buy peacock feathers', page_text)
         self.assertNotIn('make a fly', page_text)
         # Feliks start new list 
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: Buy milk')
