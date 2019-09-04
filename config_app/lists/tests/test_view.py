@@ -6,6 +6,7 @@ from django.utils.html import escape
 
 from lists.views import home_page
 from lists.models import Item, List
+from lists.forms import ItemForm
 
  
 class HomePageTest(TestCase):
@@ -21,6 +22,11 @@ class HomePageTest(TestCase):
         '''тест: сохраняет элементы, только когда нужно'''
         self.client.get('/')
         self.assertEqual(Item.objects.count(), 0)
+
+    def test_home_apge_uses_item_form(self):
+        '''тест: сохраняет элементы, только когда нужно'''
+        response = self.client.get('/')
+        self.assertIsInstance(response.context['form'], IterForm)
 
 
 class ListViewTest(TestCase):
