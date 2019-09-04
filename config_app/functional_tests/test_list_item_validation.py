@@ -16,10 +16,7 @@ class ItemValidatorTest(FunctionalTest):
         # home reload and show error messege 
         # what say element can not be empty
         
-        self.wait_for(lambda: self.assertEqual(
-            self.browser.find_element_by_css_selector('.has-error').text,
-            "You can't have an empty list item"
-        ))
+        self.wait_for(lambda: self.browser.find_element_by_css_selector('#id_text:invalid'))
 
         # now she try with text and its work 
         self.get_item_input_box().send_keys("Buy milk")
@@ -30,11 +27,7 @@ class ItemValidatorTest(FunctionalTest):
         self.get_item_input_box().send_keys(Keys.ENTER)
         
         # Luci get error in page 
-
-        self.wait_for(lambda: self.assertContains(
-            self.browser.find_element_by_css_selector('has-error').text,
-            "You can't have an empty list item"
-        ))
+        self.wait_for(lambda: self.browser.find_element_by_css_selector('#id_text:invalid'))
         
         self.get_item_input_box().send_keys("Make tea")
         self.get_item_input_box().send_keys(Keys.ENTER)
