@@ -1,10 +1,10 @@
 from selenium.webdriver.common.keys import Keys
 from .base import FunctionalTest
 
-class ItemValidatorTest(FunctionalTest):
+class ItemValidationTest(FunctionalTest):
     ''' test valid new element '''
 
-    def get_error_element():
+    def get_error_element(self):
         '''get error'''
         return self.browser.find_element_by_css_selector('.has-error')
 
@@ -77,6 +77,7 @@ class ItemValidatorTest(FunctionalTest):
 
         # she start write and error hide 
         self.get_item_input_box().send_keys('a')
+        self.get_item_input_box().send_keys(Keys.ENTER)
 
         self.wait_for(lambda: self.assertFalse(
             self.get_error_element().is_displayed()
