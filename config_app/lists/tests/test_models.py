@@ -1,6 +1,7 @@
 from django.test import TestCase
 from lists.models import Item, List
 from django.core.exceptions import ValidationError
+from django.db import IntegrityError
 from unittest import skip 
 
 class ItemModelTest(TestCase):
@@ -92,13 +93,12 @@ class ListAndItemModelsTest(TestCase):
         self.assertEqual(str(item), 'some text')
 
 
-    @skip
     def test_duplicate_items_are_invalid(self):
         '''test duplicate items are invalid'''
         
         list_ = List.objects.create()
         Item.objects.create(list=list_, text='bla')
-        with self.assertRaises(ValueError):
+        with self.assertRaises(IntegrityError):
             item = Item(list=list_, text='bla')
             #item.full_clean()
             item.save()
