@@ -12,9 +12,15 @@ class List(models.Model):
 
 class Item(models.Model):
     '''item'''
-    text = models.TextField(blank=False)
+    text = models.TextField(default='',blank=False, unique=True)
     list = models.ForeignKey(List,default=None)
 
 
+    class Meta: 
+        ordering = ('id',)
+        unique_together = ('list', 'text')
 
-
+        
+    def __str__(self):
+        return self.text
+        

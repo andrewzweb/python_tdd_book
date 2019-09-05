@@ -185,6 +185,7 @@ class NewListTest(TestCase):
         response = self.client.post('/lists/new', data={'text': ''})
         self.assertEqual(response.context['form'], ItemForm)
 
+
     def test_validation_errors_are_shown_on_home_page(self):
         '''test validation errors are shown on home page'''
         response = self.client.post('/lists/new', data={'text': ''})
