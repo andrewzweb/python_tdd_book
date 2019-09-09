@@ -92,6 +92,11 @@ USE_L10N = True
 USE_TZ = True
 
 
+AUTH_USER_MODEL = 'accounts.ListUser'
+AUTHENTICATION_BACKENDS = [
+    'accounts.authentication.PasswordlessAuthenticationBackend'
+]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,10 +132,11 @@ STATICFILES_DIRS = (
 ALLOWED_HOSTS = ['*']
 
 
-
 # for sending email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = "my_email_com.@gmail.com"
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
