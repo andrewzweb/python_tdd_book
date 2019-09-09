@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lists',
+    'accounts',
 ]
 
 ROOT_URLCONF = 'config_app.urls'
@@ -127,4 +128,9 @@ ALLOWED_HOSTS = ['*']
 
 
 
-
+# for sending email
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = "my_email_com.@gmail.com"
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
