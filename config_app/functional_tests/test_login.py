@@ -4,11 +4,16 @@ import re
 
 from .base import FunctionalTest
 
-TEST_EMAIL = 'edit@example.com'
+TEST_EMAIL = 'luci@gmail.com'
 SUBJECT = 'Your login link for Superlists'
 
 class LoginTest(FunctionalTest):
     '''test login in system'''
+
+    def test_redirects_to_home_page(self):
+        '''test redirect to home page'''
+        response = self.client.get('/accounts/login?token=abcd123')
+        self.assertRedirects(response, '/')
 
     def test_can_get_email_link_to_log_in(self):
         '''test: can get email link to log in'''
@@ -23,7 +28,7 @@ class LoginTest(FunctionalTest):
         # show message send on mail letter
 
         self.wait_for(lambda: self.assertIn(
-            'Check your email',
+            'Check you message, we send You link, which can use login in site',
             self.browser.find_element_by_tag_name('body').text
         ))
 
