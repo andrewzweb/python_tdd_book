@@ -70,7 +70,7 @@ class LoginTest(FunctionalTest):
 
         # Luci was register user
 
-        self.create_pre_authenticated_sesssion(email)
+        self.create_pre_authenticated_session(email)
         self.browser.get(self.live_server_url)
         self.wait_to_be_logged_in(email)
 
