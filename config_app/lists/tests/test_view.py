@@ -263,8 +263,10 @@ class MyListsTest(TestCase):
         '''test user save if user is auth '''
 
         user = User.objects.create(email='a@b.com')
-        self.client.force_login(user)
+        login = self.client.force_login(user)
+        self.assertTrue(login)
         self.client.post('/lists/new', data={'text': 'new item'})
         list_ = List.objects.first()
         self.assertEqual(list_.owner, user)
+
 

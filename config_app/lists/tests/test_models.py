@@ -4,6 +4,10 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from unittest import skip 
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 class ItemModelTest(TestCase):
     '''test model element'''
 
@@ -104,4 +108,26 @@ class ListAndItemModelsTest(TestCase):
             item.save()
 
         
+
+class ListModelTest(TestCase):
+    '''test model list'''
+    
+    def test_get_absolute_url(self):
+        '''test get absolute ur l'''
+        pass
+        
+        
+    def test_lists_can_have_owners(self):
+        '''test lists can have owners'''
+
+        user = User.objects.create(email='a@b.com')
+        list_ = List.objects.create(owner=user)
+        self.assertIn(list_, user.list_set.all())
+
+
+    def test_list_owner_is_optional(self):
+        '''test onwer for list not need'''
+        List.objects.create()
+
+
 
