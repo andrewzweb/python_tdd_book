@@ -52,18 +52,26 @@ class LoginTest(FunctionalTest):
         self.browser.get(url)
 
         # She registry in system 
-        self.wait_for(
-            lambda: self.browser.find_element_by_link_text('Log Out')
-        )
+        self.wait_to_be_logged_in(email=TEST_EMAIL)
 
-        navbar = self.browser.find_element_by_css_selector('.navbar')
-        self.assertIn(TEST_EMAIL, navbar.text)
+        # now she out 
+        self.browser.find_element_by_link_text('Log Out').click()
 
         # now She logout 
-        self.wait_for(
-            lambda: self.browser.find_element_by_name('email')
-        )
-        navbar = self.browser.find_element_by_css_selector('.navbar')
-        self.assertNotIn(TEST_EMAIL, navbar.text) 
+        self.wait_to_be_logged_out(email=TEST_EMAIL)
 
 
+    def test_logged_in_users_lists_are_saved_as_my_lists(self):
+        '''test lists register users'''
+        
+        email = 'luci@gmail.com'
+        self.browser.get(self.live_server_url)
+        self.wait_to_be_logged_out(email)
+
+        # Luci was register user
+
+        self.create_pre_authenticated_sesssion(email)
+        self.browser.get(self.live_server_url)
+        self.wait_to_be_logged_in(email)
+
+        
