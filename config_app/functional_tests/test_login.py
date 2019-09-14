@@ -61,17 +61,4 @@ class LoginTest(FunctionalTest):
         self.wait_to_be_logged_out(email=TEST_EMAIL)
 
 
-    def test_logged_in_users_lists_are_saved_as_my_lists(self):
-        '''test lists register users'''
-        
-        email = 'luci@gmail.com'
-        self.browser.get(self.live_server_url)
-        self.wait_to_be_logged_out(email)
-
-        # Luci was register user
-
-        self.create_pre_authenticated_session(email)
-        self.browser.get(self.live_server_url)
-        self.wait_to_be_logged_in(email)
-
         
