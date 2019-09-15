@@ -18,6 +18,10 @@ class Item(models.Model):
     text = models.TextField(default='',blank=False, unique=True)
     list = models.ForeignKey(List,default=None)
 
+    @property
+    def name(self):
+        '''name'''
+        return self.item_set.first().text
 
     class Meta: 
         ordering = ('id',)
